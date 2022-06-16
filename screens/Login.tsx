@@ -1,7 +1,8 @@
-import { useState, useEffect, FC } from "react";
+import { useEffect, FC } from "react";
 import { Button, View, StyleSheet } from "react-native";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { ResponseType, useAuthRequest } from "expo-auth-session";
+import { setToken as setTokenAction } from '../redux/repos/login'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
@@ -14,7 +15,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 const Login: FC<Props> = ({
   navigation: { navigate },
 }) => {
-  const [token, setToken] = useState("");
+  const dispatch = useDispatch();
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
@@ -40,31 +41,15 @@ const Login: FC<Props> = ({
 
   useEffect(() => {
     if (response?.type === "success") {
+      console.log('token')
+      console.log(response.params.access_token);
       const { access_token } = response.params;
-      setToken(access_token);
+
+      dispatch(setTokenAction(access_token));
 
       navigate("Playlists");
     }
   }, [response]);
-
-  useEffect(() => {
-    if (token) {
-      axios("https://api.spotify.com/v1/me/top/tracks?time_range=short_term", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      })
-        .then((response) => {
-          console.log("response", response);
-        })
-        .catch((error) => {
-          console.log("error", error.message);
-        });
-    }
-  });
 
   return (
     <View style={styles.container}>
