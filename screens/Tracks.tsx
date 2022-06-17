@@ -10,11 +10,13 @@ import {
 } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import Track from "../components/Track";
-import SearchModal from "../components/SearchModal";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from "react-native";
 import { getPlaylistTracksAsync, TracksReducer } from "../redux/repos/tracks";
+import { Audio } from 'expo-av';
+import { SpotifyTrack } from "../types";
+let sound = new Audio.Sound();
 
 type RootStackParamList = {
   Playlists: undefined;
@@ -31,8 +33,33 @@ const Tracks: FC<Props> = ({
   route: { params },
 }) => {
   const { isLoading, items } = useSelector((state: { tracks: TracksReducer }) => state.tracks);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentPlayingTrack, setCurrentPlayingTrack] = useState<SpotifyTrack | undefined>();
   const dispatch = useDispatch();
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+
+  const togglePlay = async (track: SpotifyTrack) => {
+    if (isPlaying && currentPlayingTrack?.id === track.id) {
+      await sound.pauseAsync();
+      await sound.unloadAsync();
+      setIsPlaying(false);
+      setCurrentPlayingTrack(undefined);
+    } else {
+      try {
+        if (currentPlayingTrack && track.id !== currentPlayingTrack.id) {
+          await sound.pauseAsync();
+          await sound.unloadAsync();
+        }
+        await sound.loadAsync({
+          uri: track.preview_url,
+        });
+        await sound.playAsync();
+      } catch (e) {
+        console.log(`cannot play the sound file`, e);
+      }
+      setIsPlaying(true);
+      setCurrentPlayingTrack(track);
+    }
+  }
 
   useEffect(() => {
     dispatch(getPlaylistTracksAsync({ id: params.id }));
@@ -53,14 +80,6 @@ const Tracks: FC<Props> = ({
                 Músicas da Playlist
               </Heading>
 
-              <SearchModal
-                isOpen={isFiltersOpen}
-                setIsOpen={setIsFiltersOpen}
-                onSearch={(search, filter) => {
-                  // dispatch(getPlayListsAsync({ search, filter }));
-                  setIsFiltersOpen(false);
-                }}
-              />
             </HStack>
             <Heading fontSize="sm" p="4" pb="3" textBreakStrategy="balanced">
               {params.name}
@@ -80,7 +99,14 @@ const Tracks: FC<Props> = ({
               data={items}
               pb="12"
               minW="full"
-              renderItem={({ item }) => <Track track={item} onPress={() => {}} />}
+              renderItem={({ item }) => (
+                <Track
+                  track={item}
+                  onPress={() => { }}
+                  onTogglePlay={togglePlay}
+                  isPlaying={currentPlayingTrack && currentPlayingTrack.id === item.id}
+                />
+              )}
               keyExtractor={item => item.id}
               ListEmptyComponent={() => (
                 <Center flex="1" height={Dimensions.get('window').height / 1.3}>

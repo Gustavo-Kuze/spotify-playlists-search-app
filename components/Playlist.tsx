@@ -34,6 +34,7 @@ const Playlist: FC<Props> = ({
     >
       <HStack space={3}>
         <Image
+          alt='playlist picture'
           size="md"
           source={{
             uri: (playlist.images[0] || {}).url

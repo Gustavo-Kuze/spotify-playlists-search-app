@@ -13,17 +13,16 @@ import { Ionicons } from '@expo/vector-icons';
 interface Props {
   track: SpotifyTrack;
   onPress: (item: SpotifyTrack) => void;
+  isPlaying?: boolean;
+  onTogglePlay: (item: SpotifyTrack) => void;
 }
 
 const Track: FC<Props> = ({
   track,
   onPress,
+  isPlaying,
+  onTogglePlay,
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-  }
 
   return (
     <Pressable
@@ -42,6 +41,7 @@ const Track: FC<Props> = ({
       <HStack justifyContent="space-between" alignItems="center">
         <HStack space={3} maxW="2/3">
           <Image
+            alt='album picture'
             size="md"
             source={{
               uri: (track.album.images[0] || {}).url
@@ -67,19 +67,21 @@ const Track: FC<Props> = ({
             </Text>
           </VStack>
         </HStack>
-        <Pressable
-          onPress={() => {
-            togglePlay();
-          }}
-        >
-          <Icon
-            as={Ionicons}
-            name={isPlaying ? "pause-circle-outline" : "play-circle-outline"}
-            size="3xl"
-            color="primary.500"
-            mt="2"
-          />
-        </Pressable>
+        {!!track.preview_url && (
+          <Pressable
+            onPress={() => {
+              onTogglePlay(track);
+            }}
+          >
+            <Icon
+              as={Ionicons}
+              name={isPlaying ? "pause-circle-outline" : "play-circle-outline"}
+              size="3xl"
+              color="primary.500"
+              mt="2"
+            />
+          </Pressable>
+        )}
       </HStack>
     </Pressable>
   );
