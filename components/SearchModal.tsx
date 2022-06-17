@@ -54,7 +54,15 @@ const SearchModal: FC<Props> = ({
                 horizontal
                 data={genres}
                 renderItem={({ item }) => (
-                  <Button key={item} variant={selectedFilter === item ? 'solid' : 'outline'} onPress={() => setSelectedFilter(selectedFilter === item ? '' : item)}>{item}</Button>
+                  <Button
+                    key={item}
+                    variant={selectedFilter === item ? 'solid' : 'outline'}
+                    onPress={() => setSelectedFilter(selectedFilter === item ? '' : item)}
+                    borderRadius="full"
+                    mr="2"
+                  >
+                    {item}
+                  </Button>
                 )}
                 keyExtractor={item => item}
               />

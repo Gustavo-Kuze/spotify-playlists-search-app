@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "sevenapps-spotify",
+    "slug": "sevenapps-spotify",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.gustavokuze.sevenappsspotify"
+    }
+  }
+}
