@@ -4,40 +4,33 @@
   em um arquivo único, facilitando a leitura e manutenção do código.
 */
 
-import { SpotifyPlaylist } from "../../types";
+import { SpotifyTrack } from "../../types";
 
-const typesPrefix = '@playlists';
+const typesPrefix = '@tracks';
 
 export const types = {
-  SET_PLAYLISTS: `${typesPrefix}/SET_PLAYLISTS`,
+  SET_TRACKS: `${typesPrefix}/SET_TRACKS`,
   SET_LOADING: `${typesPrefix}/SET_LOADING`,
-  GET_PLAYLISTS_ASYNC: `${typesPrefix}/GET_PLAYLISTS_ASYNC`,
+  GET_PLAYLIST_TRACKS_ASYNC: `${typesPrefix}/GET_PLAYLIST_TRACKS_ASYNC`,
 };
 
-const INITIAL_STATE = {
-  isLoading: false,
-  href: '',
-  items: [],
-  limit: 20,
-  offset: 0,
-  previous: null,
-  total: 0,
-};
-
-
-export interface PlaylistsReducer {
+export interface TracksReducer {
   isLoading: boolean;
   href: string;
-  items: SpotifyPlaylist[];
+  items: SpotifyTrack[];
   limit: number;
   offset: number;
-  previous: string | null;
   total: number;
 }
 
+const INITIAL_STATE = {
+  isLoading: false,
+  tracks: [],
+};
+
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case types.SET_PLAYLISTS:
+    case types.SET_TRACKS:
       return { ...state, ...action.payload };
     case types.SET_LOADING:
       return { ...state, isLoading: action.payload };
@@ -46,9 +39,9 @@ export default (state = INITIAL_STATE, action) => {
   }
 };
 
-export const setPlaylists = (playlists: PlaylistsReducer) => ({
-  type: types.SET_PLAYLISTS,
-  payload: playlists,
+export const setTracks = (tracks: string) => ({
+  type: types.SET_TRACKS,
+  payload: tracks,
 });
 
 export const setIsLoading = (isLoading: boolean) => ({
@@ -56,20 +49,19 @@ export const setIsLoading = (isLoading: boolean) => ({
   payload: isLoading,
 });
 
-interface GetPlaylistsAsyncParams {
-  search: string;
-  filter?: string;
-  onSuccess?: (data: SpotifyPlaylist[]) => void;
+interface GetPlaylistTracksAsyncParams {
+  id: string;
+  onSuccess?: (data: SpotifyTrack[]) => void;
   onError?: (error: Error) => void;
 }
 
-export const getPlayListsAsync = (payload: GetPlaylistsAsyncParams) => ({
-  type: types.GET_PLAYLISTS_ASYNC,
+export const getPlaylistTracksAsync = (payload: GetPlaylistTracksAsyncParams) => ({
+  type: types.GET_PLAYLIST_TRACKS_ASYNC,
   payload,
 });
 
 export const allActions = {
-  setPlaylists,
+  setTracks,
   setIsLoading,
-  getPlayListsAsync,
+  getPlaylistTracksAsync,
 };

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Box,
   Heading,
@@ -9,12 +9,12 @@ import {
   Icon,
 } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
-import { getPlayListsAsync, PlaylistsReducer } from "../redux/repos/playlists";
-import Playlist from "../components/Playlist";
+import Track from "../components/Track";
 import SearchModal from "../components/SearchModal";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Ionicons } from '@expo/vector-icons';
 import { Dimensions } from "react-native";
+import { getPlaylistTracksAsync, TracksReducer } from "../redux/repos/tracks";
 
 type RootStackParamList = {
   Playlists: undefined;
@@ -30,9 +30,13 @@ const Tracks: FC<Props> = ({
   navigation: { navigate },
   route: { params },
 }) => {
-  const { isLoading, items } = useSelector((state: { playlists: PlaylistsReducer }) => state.playlists);
+  const { isLoading, items } = useSelector((state: { tracks: TracksReducer }) => state.tracks);
   const dispatch = useDispatch();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(getPlaylistTracksAsync({ id: params.id }));
+  }, [params]);
 
   return (
     <Center
@@ -53,7 +57,7 @@ const Tracks: FC<Props> = ({
                 isOpen={isFiltersOpen}
                 setIsOpen={setIsFiltersOpen}
                 onSearch={(search, filter) => {
-                  dispatch(getPlayListsAsync({ search, filter }));
+                  // dispatch(getPlayListsAsync({ search, filter }));
                   setIsFiltersOpen(false);
                 }}
               />
@@ -76,7 +80,7 @@ const Tracks: FC<Props> = ({
               data={items}
               pb="12"
               minW="full"
-              renderItem={({ item }) => <Playlist playlist={item} onPress={() => { }} />}
+              renderItem={({ item }) => <Track track={item} onPress={() => {}} />}
               keyExtractor={item => item.id}
               ListEmptyComponent={() => (
                 <Center flex="1" height={Dimensions.get('window').height / 1.3}>
