@@ -1,11 +1,12 @@
 import { takeLatest, all } from 'redux-saga/effects';
-import { types as loginTypes } from '../repos/login';
+import { types as playlistsTypes } from '../repos/playlists';
 import {
-  fetchLoginEffect
-} from './loginSaga';
+  fetchPlaylistsEffect
+} from './playlistsSaga';
 
 export default function* root() {
   yield all([
-    yield takeLatest(loginTypes.GET_TOKEN_ASYNC, fetchLoginEffect),
+    // @ts-ignore
+    yield takeLatest(playlistsTypes.GET_PLAYLISTS_ASYNC, fetchPlaylistsEffect),
   ]);
 }

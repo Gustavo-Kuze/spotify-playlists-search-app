@@ -1,9 +1,12 @@
 import { useEffect, FC } from "react";
-import { Button, View, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { ResponseType, useAuthRequest } from "expo-auth-session";
 import { setToken as setTokenAction } from '../redux/repos/login'
+import { Center, Button, Icon } from "native-base";
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import ThemeToggler from "../components/ThemeToggler";
+import { FontAwesome } from '@expo/vector-icons';
+import { getPlayListsAsync } from "../redux/repos/playlists";
 
 type RootStackParamList = {
   Login: undefined;
@@ -45,31 +48,33 @@ const Login: FC<Props> = ({
       console.log(response.params.access_token);
       const { access_token } = response.params;
 
+      console.log(access_token);
+
       dispatch(setTokenAction(access_token));
 
-      navigate("Playlists");
+      dispatch(getPlayListsAsync());
+
+      navigate('Playlists');
     }
   }, [response]);
 
   return (
-    <View style={styles.container}>
+    <Center
+      _dark={{ bg: 'blueGray.900' }}
+      _light={{ bg: 'blueGray.50' }}
+      flex="1">
+      <ThemeToggler />
       <Button
-        title="Login with Spotify"
+        colorScheme={'success'}
         onPress={() => {
           promptAsync();
         }}
-      />
-    </View>
+        rightIcon={<Icon as={FontAwesome} name="spotify" size="lg" />}
+      >
+        Fazer login com Spotify
+      </Button>
+    </Center>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Login;
