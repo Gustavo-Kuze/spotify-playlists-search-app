@@ -52,7 +52,7 @@ const Login: FC<Props> = ({
 
       dispatch(setTokenAction(access_token));
 
-      dispatch(getPlayListsAsync());
+      dispatch(getPlayListsAsync({ search: 'Em alta' }));
 
       navigate('Playlists');
     }
@@ -60,8 +60,8 @@ const Login: FC<Props> = ({
 
   return (
     <Center
-      _dark={{ bg: 'blueGray.900' }}
-      _light={{ bg: 'blueGray.50' }}
+      _dark={{ bg: 'gray.900' }}
+      _light={{ bg: 'gray.50' }}
       flex="1">
       <ThemeToggler />
       <Button

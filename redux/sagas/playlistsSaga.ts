@@ -3,7 +3,7 @@ import { getPlaylists } from '../../services/playlists';
 
 import { types as playlistsTypes } from '../repos/playlists';
 
-function* fetchPlaylistsEffect({ payload: { search, onSuccess, onError } }) {
+function* fetchPlaylistsEffect({ payload: { search, filter, onSuccess, onError } }) {
   yield put({
     type: playlistsTypes.SET_LOADING,
     payload: true,
@@ -11,7 +11,7 @@ function* fetchPlaylistsEffect({ payload: { search, onSuccess, onError } }) {
 
   const token = yield select(state => state.login.token);
 
-  const response = yield call(() => getPlaylists(token, search));
+  const response = yield call(() => getPlaylists(token, search, filter));
 
   if (!!response && !!response.playlists) {
     yield put({
@@ -19,9 +19,13 @@ function* fetchPlaylistsEffect({ payload: { search, onSuccess, onError } }) {
       payload: response.playlists,
     });
 
-    onSuccess();
+    if (typeof onSuccess === 'function') {
+      onSuccess();
+    }
   } else {
-    onError();
+    if (typeof onError === 'function') {
+      onError(new Error('Error fetching playlists'));
+    }
   }
 
   yield put({

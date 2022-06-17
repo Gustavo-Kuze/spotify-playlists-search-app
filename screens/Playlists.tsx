@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Box,
   Heading,
@@ -6,41 +6,41 @@ import {
   HStack,
   Spinner,
   Center,
-  IconButton,
 } from "native-base";
-import { useSelector } from "react-redux";
-import { PlaylistsReducer } from "../redux/repos/playlists";
+import { useDispatch, useSelector } from "react-redux";
+import { getPlayListsAsync, PlaylistsReducer } from "../redux/repos/playlists";
 import Playlist from "../components/Playlist";
-import { Ionicons } from '@expo/vector-icons';
+import SearchModal from "../components/SearchModal";
 
 const Playlists: FC = () => {
   const { isLoading, items } = useSelector((state: { playlists: PlaylistsReducer }) => state.playlists);
+  const dispatch = useDispatch();
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   return (
     <Center
       flex="1"
       safeArea
-      _dark={{ bg: 'blueGray.900' }}
-      _light={{ bg: 'blueGray.50' }}
+      _dark={{ bg: 'gray.900' }}
+      _light={{ bg: 'gray.50' }}
     >
       <Box>
-        <HStack justifyContent={'space-between'}>
-          <Heading fontSize="xl" p="4" pb="3">
-            Playlists
-          </Heading>
+        {!isLoading && (
+          <HStack justifyContent={'space-between'}>
+            <Heading fontSize="xl" p="4" pb="3">
+              Playlists
+            </Heading>
 
-          <IconButton
-            size={'lg'}
-            variant="link"
-            _icon={{
-              as: Ionicons,
-              name: "filter"
-            }}
-            onPress={() => {
-              console.log('filter');
-            }}
-          />
-        </HStack>
+            <SearchModal
+              isOpen={isFiltersOpen}
+              setIsOpen={setIsFiltersOpen}
+              onSearch={(search, filter) => {
+                dispatch(getPlayListsAsync({ search, filter }));
+                setIsFiltersOpen(false);
+              }}
+            />
+          </HStack>
+        )}
         {
           isLoading ? (
             <HStack space={2} justifyContent="center">
@@ -53,6 +53,7 @@ const Playlists: FC = () => {
             <FlatList
               data={items}
               pb="12"
+              minW="full"
               renderItem={({ item }) => <Playlist playlist={item} />}
               keyExtractor={item => item.id} />
           )

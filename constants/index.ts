@@ -1,0 +1,38 @@
+const genres = [
+  "anime",
+  "acoustic",
+  "black-metal",
+  "brazil",
+  "british",
+  "cantopop",
+  "classical",
+  "country",
+  "dance",
+  "death-metal",
+  "dubstep",
+  "electronic",
+  "folk",
+  "forro",
+  "garage",
+  "grunge",
+  "hard-rock",
+  "hardcore",
+  "hardstyle",
+  "heavy-metal",
+  "hip-hop",
+  "jazz",
+  "metal",
+  "piano",
+  "pop",
+  "punk",
+  "reggae",
+  "rock",
+  "romance",
+  "sad",
+  "sertanejo",
+  "techno"
+]
+
+export {
+  genres,
+}

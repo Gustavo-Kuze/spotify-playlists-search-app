@@ -17,9 +17,11 @@ const Playlist: FC<Props> = ({
 }) => {
 
   return (
-    <Box borderBottomWidth="1" _dark={{
-      borderColor: "gray.600"
-    }}
+    <Box
+      borderBottomWidth="1"
+      _dark={{
+        borderColor: "gray.600"
+      }}
       borderColor="coolGray.200"
       pl="4"
       pr="5"

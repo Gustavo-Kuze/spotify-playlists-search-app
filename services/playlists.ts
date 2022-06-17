@@ -17,9 +17,9 @@ export const getFeaturedPlaylists = async (token) => {
   }
 }
 
-export const getPlaylists = async (token, search) => {
+export const getPlaylists = async (token, search, filter) => {
   try {
-    const response = await axios(`https://api.spotify.com/v1/search?type=playlist&q=${search}`, {
+    const response = await axios(`https://api.spotify.com/v1/search?type=playlist&q=${!!filter ? `genre:${filter}+` : ''}${search || filter || 'Em alta'}`, {
       method: "GET",
       headers: {
         Accept: "application/json",

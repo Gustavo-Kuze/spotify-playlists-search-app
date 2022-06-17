@@ -56,9 +56,16 @@ export const setIsLoading = (isLoading: boolean) => ({
   payload: isLoading,
 });
 
-export const getPlayListsAsync = (onSuccess = () => { }, onError = () => { }, search = 'Em alta') => ({
+interface GetPlaylistsAsyncParams {
+  search: string;
+  filter?: string;
+  onSuccess?: (data: SpotifyPlaylist[]) => void;
+  onError?: (error: Error) => void;
+}
+
+export const getPlayListsAsync = (payload: GetPlaylistsAsyncParams) => ({
   type: types.GET_PLAYLISTS_ASYNC,
-  payload: { search, onSuccess, onError },
+  payload,
 });
 
 export const allActions = {
