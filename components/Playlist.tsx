@@ -1,23 +1,25 @@
 import React, { FC } from 'react';
 import {
-  Box,
   Text,
   Image,
   HStack,
   VStack,
+  Pressable,
 } from "native-base";
 import { SpotifyPlaylist } from '../types';
 
 interface Props {
-  playlist: SpotifyPlaylist
+  playlist: SpotifyPlaylist;
+  onPress: (item: SpotifyPlaylist) => void;
 }
 
 const Playlist: FC<Props> = ({
   playlist,
+  onPress,
 }) => {
 
   return (
-    <Box
+    <Pressable
       borderBottomWidth="1"
       _dark={{
         borderColor: "gray.600"
@@ -26,12 +28,15 @@ const Playlist: FC<Props> = ({
       pl="4"
       pr="5"
       py="2"
+      onPress={() => {
+        onPress(playlist);
+      }}
     >
       <HStack space={3}>
         <Image
           size="md"
           source={{
-            uri: playlist.images[0].url
+            uri: (playlist.images[0] || {}).url
           }} />
         <VStack >
           <Text
@@ -65,7 +70,7 @@ const Playlist: FC<Props> = ({
           </Text>
         </VStack>
       </HStack>
-    </Box>
+    </Pressable>
   );
 };
 

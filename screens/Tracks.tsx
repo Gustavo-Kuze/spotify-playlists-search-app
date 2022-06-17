@@ -13,12 +13,10 @@ import { getPlayListsAsync, PlaylistsReducer } from "../redux/repos/playlists";
 import Playlist from "../components/Playlist";
 import SearchModal from "../components/SearchModal";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { SpotifyPlaylist } from "../types";
-import { Dimensions } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { Dimensions } from "react-native";
 
 type RootStackParamList = {
-  Login: undefined;
   Playlists: undefined;
   Tracks: {
     id: string;
@@ -26,10 +24,11 @@ type RootStackParamList = {
   };
 };
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Playlists'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Tracks'>;
 
-const Playlists: FC<Props> = ({
+const Tracks: FC<Props> = ({
   navigation: { navigate },
+  route: { params },
 }) => {
   const { isLoading, items } = useSelector((state: { playlists: PlaylistsReducer }) => state.playlists);
   const dispatch = useDispatch();
@@ -44,20 +43,25 @@ const Playlists: FC<Props> = ({
     >
       <Box>
         {!isLoading && (
-          <HStack justifyContent={'space-between'}>
-            <Heading fontSize="xl" p="4" pb="3">
-              Playlists
-            </Heading>
+          <>
+            <HStack justifyContent={'space-between'}>
+              <Heading fontSize="lg" p="4" pb="3" textBreakStrategy="balanced">
+                Músicas da Playlist
+              </Heading>
 
-            <SearchModal
-              isOpen={isFiltersOpen}
-              setIsOpen={setIsFiltersOpen}
-              onSearch={(search, filter) => {
-                dispatch(getPlayListsAsync({ search, filter }));
-                setIsFiltersOpen(false);
-              }}
-            />
-          </HStack>
+              <SearchModal
+                isOpen={isFiltersOpen}
+                setIsOpen={setIsFiltersOpen}
+                onSearch={(search, filter) => {
+                  dispatch(getPlayListsAsync({ search, filter }));
+                  setIsFiltersOpen(false);
+                }}
+              />
+            </HStack>
+            <Heading fontSize="sm" p="4" pb="3" textBreakStrategy="balanced">
+              {params.name}
+            </Heading>
+          </>
         )}
         {
           isLoading ? (
@@ -72,13 +76,13 @@ const Playlists: FC<Props> = ({
               data={items}
               pb="12"
               minW="full"
-              renderItem={({ item }) => <Playlist playlist={item} onPress={(playlist: SpotifyPlaylist) => navigate('Tracks', playlist)} />}
+              renderItem={({ item }) => <Playlist playlist={item} onPress={() => { }} />}
               keyExtractor={item => item.id}
               ListEmptyComponent={() => (
                 <Center flex="1" height={Dimensions.get('window').height / 1.3}>
                   <HStack space={2} justifyContent="center">
                     <Heading color="primary.500" fontSize="md">
-                      Nenhuma playlist encontrada
+                      Nenhuma música encontrada
                     </Heading>
                   </HStack>
                   <Icon as={Ionicons} name="sad-outline" size="xl" color="primary.500" mt="2" />
@@ -92,4 +96,4 @@ const Playlists: FC<Props> = ({
   );
 }
 
-export default Playlists;
+export default Tracks;
