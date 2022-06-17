@@ -1,6 +1,7 @@
 import { useEffect, FC } from "react";
 import { useDispatch } from "react-redux";
 import { ResponseType, useAuthRequest } from "expo-auth-session";
+import { StatusBar } from 'expo-status-bar';
 import { setToken as setTokenAction } from '../redux/repos/login'
 import { Center, Button, Icon } from "native-base";
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -19,6 +20,7 @@ const Login: FC<Props> = ({
   navigation: { navigate },
 }) => {
   const dispatch = useDispatch();
+
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
@@ -59,21 +61,24 @@ const Login: FC<Props> = ({
   }, [response]);
 
   return (
-    <Center
-      _dark={{ bg: 'gray.900' }}
-      _light={{ bg: 'gray.50' }}
-      flex="1">
-      <ThemeToggler />
-      <Button
-        colorScheme={'success'}
-        onPress={() => {
-          promptAsync();
-        }}
-        rightIcon={<Icon as={FontAwesome} name="spotify" size="lg" />}
-      >
-        Fazer login com Spotify
-      </Button>
-    </Center>
+    <>
+      <StatusBar style={'inverted'} />
+      <Center
+        _dark={{ bg: 'gray.900' }}
+        _light={{ bg: 'gray.50' }}
+        flex="1">
+        <ThemeToggler />
+        <Button
+          colorScheme={'success'}
+          onPress={() => {
+            promptAsync();
+          }}
+          rightIcon={<Icon as={FontAwesome} name="spotify" size="lg" />}
+        >
+          Fazer login com Spotify
+        </Button>
+      </Center>
+    </>
   );
 }
 

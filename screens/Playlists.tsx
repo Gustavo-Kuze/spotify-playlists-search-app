@@ -16,6 +16,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { SpotifyPlaylist } from "../types";
 import { Dimensions } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 
 type RootStackParamList = {
   Login: undefined;
@@ -36,59 +37,62 @@ const Playlists: FC<Props> = ({
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   return (
-    <Center
-      flex="1"
-      safeArea
-      _dark={{ bg: 'gray.900' }}
-      _light={{ bg: 'gray.50' }}
-    >
-      <Box>
-        {!isLoading && (
-          <HStack justifyContent={'space-between'}>
-            <Heading fontSize="xl" p="4" pb="3">
-              Playlists
-            </Heading>
-
-            <SearchModal
-              isOpen={isFiltersOpen}
-              setIsOpen={setIsFiltersOpen}
-              onSearch={(search, filter) => {
-                dispatch(getPlayListsAsync({ search, filter }));
-                setIsFiltersOpen(false);
-              }}
-            />
-          </HStack>
-        )}
-        {
-          isLoading ? (
-            <HStack space={2} justifyContent="center">
-              <Spinner accessibilityLabel="Loading posts" />
-              <Heading color="primary.500" fontSize="md">
-                Carregando...
+    <>
+      <StatusBar style={'inverted'} />
+      <Center
+        flex="1"
+        safeArea
+        _dark={{ bg: 'gray.900' }}
+        _light={{ bg: 'gray.50' }}
+      >
+        <Box>
+          {!isLoading && (
+            <HStack justifyContent={'space-between'}>
+              <Heading fontSize="xl" p="4" pb="3">
+                Playlists
               </Heading>
+
+              <SearchModal
+                isOpen={isFiltersOpen}
+                setIsOpen={setIsFiltersOpen}
+                onSearch={(search, filter) => {
+                  dispatch(getPlayListsAsync({ search, filter }));
+                  setIsFiltersOpen(false);
+                }}
+              />
             </HStack>
-          ) : (
-            <FlatList
-              data={items}
-              pb="12"
-              minW="full"
-              renderItem={({ item }) => <Playlist playlist={item} onPress={(playlist: SpotifyPlaylist) => navigate('Tracks', playlist)} />}
-              keyExtractor={item => item.id}
-              ListEmptyComponent={() => (
-                <Center flex="1" height={Dimensions.get('window').height / 1.3}>
-                  <HStack space={2} justifyContent="center">
-                    <Heading color="primary.500" fontSize="md">
-                      Nenhuma playlist encontrada
-                    </Heading>
-                  </HStack>
-                  <Icon as={Ionicons} name="sad-outline" size="xl" color="primary.500" mt="2" />
-                </Center>
-              )}
-            />
-          )
-        }
-      </Box>
-    </Center>
+          )}
+          {
+            isLoading ? (
+              <HStack space={2} justifyContent="center">
+                <Spinner accessibilityLabel="Loading posts" />
+                <Heading color="primary.500" fontSize="md">
+                  Carregando...
+                </Heading>
+              </HStack>
+            ) : (
+              <FlatList
+                data={items}
+                pb="12"
+                minW="full"
+                renderItem={({ item }) => <Playlist playlist={item} onPress={(playlist: SpotifyPlaylist) => navigate('Tracks', playlist)} />}
+                keyExtractor={item => item.id}
+                ListEmptyComponent={() => (
+                  <Center flex="1" height={Dimensions.get('window').height / 1.3}>
+                    <HStack space={2} justifyContent="center">
+                      <Heading color="primary.500" fontSize="md">
+                        Nenhuma playlist encontrada
+                      </Heading>
+                    </HStack>
+                    <Icon as={Ionicons} name="sad-outline" size="xl" color="primary.500" mt="2" />
+                  </Center>
+                )}
+              />
+            )
+          }
+        </Box>
+      </Center>
+    </>
   );
 }
 
