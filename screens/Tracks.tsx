@@ -6,17 +6,15 @@ import {
   HStack,
   Spinner,
   Center,
-  Icon,
 } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import Track from "../components/Track";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Ionicons } from '@expo/vector-icons';
-import { Dimensions } from "react-native";
 import { getPlaylistTracksAsync, TracksReducer } from "../redux/repos/tracks";
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
 import { SpotifyTrack } from "../types";
+import EmptyComponent from "../components/EmptyComponent";
 let sound = new Audio.Sound();
 
 type RootStackParamList = {
@@ -101,8 +99,10 @@ const Tracks: FC<Props> = ({
             ) : (
               <FlatList
                 data={items}
+                keyExtractor={item => item.id}
                 pb="12"
                 minW="full"
+                ListEmptyComponent={() => <EmptyComponent>Nenhuma música encontrada</EmptyComponent>}
                 renderItem={({ item }) => (
                   <Track
                     track={item}
@@ -110,17 +110,6 @@ const Tracks: FC<Props> = ({
                     onTogglePlay={togglePlay}
                     isPlaying={currentPlayingTrack && currentPlayingTrack.id === item.id}
                   />
-                )}
-                keyExtractor={item => item.id}
-                ListEmptyComponent={() => (
-                  <Center flex="1" height={Dimensions.get('window').height / 1.3}>
-                    <HStack space={2} justifyContent="center">
-                      <Heading color="primary.500" fontSize="md">
-                        Nenhuma música encontrada
-                      </Heading>
-                    </HStack>
-                    <Icon as={Ionicons} name="sad-outline" size="xl" color="primary.500" mt="2" />
-                  </Center>
                 )}
               />
             )

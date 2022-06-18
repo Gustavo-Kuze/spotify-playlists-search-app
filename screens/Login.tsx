@@ -46,8 +46,6 @@ const Login: FC<Props> = ({
 
   useEffect(() => {
     if (response?.type === "success") {
-      console.log('token')
-      console.log(response.params.access_token);
       const { access_token } = response.params;
 
       console.log(access_token);

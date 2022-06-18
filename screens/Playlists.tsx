@@ -6,7 +6,6 @@ import {
   HStack,
   Spinner,
   Center,
-  Icon,
 } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { getPlayListsAsync, PlaylistsReducer } from "../redux/repos/playlists";
@@ -14,9 +13,8 @@ import Playlist from "../components/Playlist";
 import SearchModal from "../components/SearchModal";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { SpotifyPlaylist } from "../types";
-import { Dimensions } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import EmptyComponent from "../components/EmptyComponent";
 
 type RootStackParamList = {
   Login: undefined;
@@ -73,19 +71,15 @@ const Playlists: FC<Props> = ({
             ) : (
               <FlatList
                 data={items}
+                keyExtractor={item => item.id}
                 pb="12"
                 minW="full"
-                renderItem={({ item }) => <Playlist playlist={item} onPress={(playlist: SpotifyPlaylist) => navigate('Tracks', playlist)} />}
-                keyExtractor={item => item.id}
-                ListEmptyComponent={() => (
-                  <Center flex="1" height={Dimensions.get('window').height / 1.3}>
-                    <HStack space={2} justifyContent="center">
-                      <Heading color="primary.500" fontSize="md">
-                        Nenhuma playlist encontrada
-                      </Heading>
-                    </HStack>
-                    <Icon as={Ionicons} name="sad-outline" size="xl" color="primary.500" mt="2" />
-                  </Center>
+                ListEmptyComponent={() => <EmptyComponent>Nenhuma playlist encontrada</EmptyComponent>}
+                renderItem={({ item }) => (
+                  <Playlist
+                    playlist={item}
+                    onPress={(playlist: SpotifyPlaylist) => navigate('Tracks', playlist)}
+                  />
                 )}
               />
             )
