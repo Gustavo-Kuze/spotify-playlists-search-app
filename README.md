@@ -1,36 +1,111 @@
-# TypeScript Example
+# Spotify Playlists Search App
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
+## [pt-BR]
 
-```sh
-npx create-react-native-app -t with-typescript
+Um App React Native para listar e pesquisar playlists na [Web API do Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/search)
+
+## Instruções para instalação
+
+### Ambiente de Desenvolvimento
+
+Por gentileza, siga as intruções descritas na [documentação oficial do Expo](https://docs.expo.dev/get-started/installation) para preparar seu ambiente de desenvolvimento.
+
+### Instalando as dependências do projeto
+
+**Atenção**: O projeto foi configurado utilizando o Yarn (v1.22.18) e as versões dependências estão fixas no arquivo `yarn.lock`.
+
+____
+
+Para instalar as dependências utilize o comando:
+
+```
+yarn
 ```
 
-TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
+### Como executar o projeto
 
-## 🚀 How to use
+**Android**
 
-#### Creating a new project
+Após abrir o emulador do `AVD` ou `Genymotion`, ou conectar seu dispositivo Android via USB (com modo de depuração ativado), execute o seguinte comando no terminal:
 
-- Install the CLI: `npm i -g expo-cli`
-- Create a project: `npx create-react-native-app -t with-typescript`
-- `cd` into the project
+```
+yarn android
+```
 
-### Adding TypeScript to existing projects
+**iOS**
 
-- Create a blank TypeScript config: `touch tsconfig.json`
-- Run `expo start` to automatically configure TypeScript
-- Rename files to TypeScript, `.tsx` for React components and `.ts` for plain typescript files
+Execute o seguinte comando no terminal:
 
-> 💡 You can disable the TypeScript setup in Expo CLI with the environment variable `EXPO_NO_TYPESCRIPT_SETUP=1 expo start`
+```
+yarn ios
+```
 
-## 📝 Notes
+____
 
-- [Expo TypeScript guide](https://docs.expo.dev/versions/latest/guides/typescript/)
+## Sobre as decisões tomadas
+
+**Porque usar Redux em um projeto tão pequeno?**
+
+Por se tratar de um projeto de avaliação, decidi implementar Redux e Redux Sagas para demonstrar a abordagem que eu escolheria caso estivésse criando uma aplicação do mundo real. 
+
+Sinto que devo citar que em projetos menores, a própria Context API supriria basicamente todas as necessidades de compartilhamento de estado, inclusive nesse projeto.
+
+**Por que utilizar o Native Base ao invés de criar os componentes com styled-components ou StyleSheet.create?**
+
+Como o principal desafio do projeto era estudar e implementar a [Web API do Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/search), decidi implementar o Native Base para agilizar o desenvolvimento das telas.
+
+____
+
+## [en-US]
+
+A React Native App that allows you to list and search Spotify Playlists using [Spotify's Web API](https://developer.spotify.com/documentation/web-api/reference/#/operations/search)
+
+## Installation instructions
+
+### Development env
+
+Please follow the instructions on the [Official Expo Documentation](https://docs.expo.dev/get-started/installation) for preparing your dev env.
+
+### Installing the dependencies
+
+**WARNING**: This project was configured using Yarn (v1.22.18) and the deps versions are locked on `yarn.lock` file.
+
+____
+
+Run the following command to install the dependencies:
+
+```
+yarn
+```
+
+### How to start the projeect
+
+**Android**
+
+After installing the `AVD` emulator or `Genymotion` or even connecting your Android device via USB (with debugging mode enabled), execute the following command on your terminal:
+
+```
+yarn android
+```
+
+**iOS**
+
+Run the following command on your terminal:
+
+```
+yarn ios
+```
+
+____
+
+## About the decisions taken
+
+**Why to use Redux in such a small project?**
+
+Since this is a test project, I have decided to implement Redux and Redux Sagas to demonstrate how I would aproach if this was a real world app. 
+
+It's worth mentioning that Context API would be enough to cover all use cases in smallers projects (including this one).
+
+**Why to use Native Base instead of styled-components or StyleSheet.create?**
+
+Since the biggest challenge with this project was to understand and implement [Spotify's Web API](https://developer.spotify.com/documentation/web-api/reference/#/operations/search), I have decided to use Native Base for a faster development.

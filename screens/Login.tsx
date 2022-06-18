@@ -36,7 +36,7 @@ const Login: FC<Props> = ({
         "user-read-private",
       ],
       usePKCE: false,
-      redirectUri: "exp://127.0.0.1:19000/",
+      redirectUri: "exp://127.0.0.1:19000/", // only works in dev mode
     },
     {
       authorizationEndpoint: "https://accounts.spotify.com/authorize",
