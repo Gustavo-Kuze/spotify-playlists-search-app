@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -13,8 +13,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { getPlaylistTracksAsync, TracksReducer } from "../redux/repos/tracks";
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
-import { SpotifyTrack } from "../types";
 import EmptyComponent from "../components/EmptyComponent";
+import useTogglePlay from "../hooks/useTogglePlay";
 let sound = new Audio.Sound();
 
 type RootStackParamList = {
@@ -33,33 +33,9 @@ const Tracks: FC<Props> = ({
 }) => {
 
   const { isLoading, items } = useSelector((state: { tracks: TracksReducer }) => state.tracks);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentPlayingTrack, setCurrentPlayingTrack] = useState<SpotifyTrack | undefined>();
-  const dispatch = useDispatch();
+  const { currentPlayingTrack, togglePlay } = useTogglePlay(sound);
 
-  const togglePlay = async (track: SpotifyTrack) => {
-    if (isPlaying && currentPlayingTrack?.id === track.id) {
-      await sound.pauseAsync();
-      await sound.unloadAsync();
-      setIsPlaying(false);
-      setCurrentPlayingTrack(undefined);
-    } else {
-      try {
-        if (currentPlayingTrack && track.id !== currentPlayingTrack.id) {
-          await sound.pauseAsync();
-          await sound.unloadAsync();
-        }
-        await sound.loadAsync({
-          uri: track.preview_url,
-        });
-        await sound.playAsync();
-      } catch (e) {
-        console.log(`cannot play the sound file`, e);
-      }
-      setIsPlaying(true);
-      setCurrentPlayingTrack(track);
-    }
-  }
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPlaylistTracksAsync({ id: params.id }));
