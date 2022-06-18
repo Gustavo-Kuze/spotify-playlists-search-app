@@ -3,11 +3,12 @@ import { useDispatch } from "react-redux";
 import { ResponseType, useAuthRequest } from "expo-auth-session";
 import { StatusBar } from 'expo-status-bar';
 import { setToken as setTokenAction } from '../redux/repos/login'
-import { Center, Button, Icon } from "native-base";
+import { Center, Button, Icon, useColorMode } from "native-base";
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import ThemeToggler from "../components/ThemeToggler";
 import { FontAwesome } from '@expo/vector-icons';
 import { getPlayListsAsync } from "../redux/repos/playlists";
+import { Dimensions } from "react-native";
 
 type RootStackParamList = {
   Login: undefined;
@@ -20,6 +21,7 @@ const Login: FC<Props> = ({
   navigation: { navigate },
 }) => {
   const dispatch = useDispatch();
+  const { colorMode } = useColorMode();
 
   const [request, response, promptAsync] = useAuthRequest(
     {
@@ -61,6 +63,17 @@ const Login: FC<Props> = ({
   return (
     <>
       <StatusBar style={'inverted'} />
+      <Icon
+        as={FontAwesome}
+        name="spotify"
+        size={Dimensions.get('screen').width / 1.5}
+        color={'success.500'}
+        opacity={colorMode === 'dark' ? 0.5 : 0.7}
+        position="absolute"
+        top="1"
+        left="-64"
+        zIndex={999}
+      />
       <Center
         _dark={{ bg: 'gray.900' }}
         _light={{ bg: 'gray.50' }}
@@ -76,6 +89,17 @@ const Login: FC<Props> = ({
           Fazer login com Spotify
         </Button>
       </Center>
+      <Icon
+        as={FontAwesome}
+        name="spotify"
+        size={Dimensions.get('screen').width / 1.5}
+        color={'success.500'}
+        opacity={colorMode === 'dark' ? 0.5 : 0.7}
+        position="absolute"
+        bottom="1"
+        right="-128"
+        zIndex={999}
+      />
     </>
   );
 }
