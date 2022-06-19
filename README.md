@@ -2,6 +2,29 @@
 
 <img width="300" src="https://cdn.discordapp.com/attachments/693151307116314736/988037732871856168/Screenshot_20220619-080743_Expo_Go.jpg" />
 
+- [Spotify Playlists Search App](#spotify-playlists-search-app)
+  - [[pt-BR]](#pt-br)
+  - [Funcionalidades](#funcionalidades)
+    - [Tema escuro](#tema-escuro)
+    - [Filtros de Pesquisa de Playlists](#filtros-de-pesquisa-de-playlists)
+    - [Pesquisa de Playlists](#pesquisa-de-playlists)
+  - [Instruções para instalação](#instruções-para-instalação)
+    - [Ambiente de Desenvolvimento](#ambiente-de-desenvolvimento)
+    - [Instalando as dependências do projeto](#instalando-as-dependências-do-projeto)
+    - [Como executar o projeto](#como-executar-o-projeto)
+  - [Sobre as decisões tomadas](#sobre-as-decisões-tomadas)
+  - [[en-US]](#en-us)
+  - [Features](#features)
+    - [Dark Theme](#dark-theme)
+    - [Playlists Filters](#playlists-filters)
+    - [Playlists Search](#playlists-search)
+  - [Installation instructions](#installation-instructions)
+    - [Development env](#development-env)
+    - [Installing the dependencies](#installing-the-dependencies)
+    - [How to start the project](#how-to-start-the-project)
+  - [About the decisions taken](#about-the-decisions-taken)
+
+
 ## [pt-BR]
 
 Um App React Native para listar e pesquisar playlists na [Web API do Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/search)
