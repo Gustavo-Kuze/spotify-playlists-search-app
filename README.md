@@ -1,6 +1,6 @@
 # Spotify Playlists Search App
 
-<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988037732871856168/Screenshot_20220619-080743_Expo_Go.jpg" />
+<img width="300" src="https://cdn.discordapp.com/attachments/693151307116314736/988037732871856168/Screenshot_20220619-080743_Expo_Go.jpg" />
 
 ## [pt-BR]
 
@@ -16,20 +16,20 @@ O componente `<ThemeToggler />` é exibido na tela de Login e tem a responsabili
 
 **Nota**: Por padrão o app abrirá com o tema escuro
 
-<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988038749902499880/vlc_K1klj2CUTk.gif" />
+<img width="300" src="https://cdn.discordapp.com/attachments/693151307116314736/988038749902499880/vlc_K1klj2CUTk.gif" />
 
 
 ### Filtros de Pesquisa de Playlists
 
 Pesquisa por gêneros
 
-<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988040948372094996/vlc_SnzPh7BWUy.gif" />
+<img width="300" src="https://cdn.discordapp.com/attachments/693151307116314736/988040948372094996/vlc_SnzPh7BWUy.gif" />
 
 ### Pesquisa de Playlists
 
 Pesquise as playlists criadas de seu artista favorito.
 
-<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988041488225165322/vlc_iIXyrKoq44.gif" />
+<img width="300" src="https://cdn.discordapp.com/attachments/693151307116314736/988041488225165322/vlc_iIXyrKoq44.gif" />
 
 ____
 
@@ -100,20 +100,20 @@ The component `<ThemeToggler />` shown on Login screen is responsable for toggli
 
 **Note**: The app will open with dark theme by default.
 
-<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988038749902499880/vlc_K1klj2CUTk.gif" />
+<img width="300" src="https://cdn.discordapp.com/attachments/693151307116314736/988038749902499880/vlc_K1klj2CUTk.gif" />
 
 
 ### Playlists Filters
 
 Search by genre.
 
-<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988040948372094996/vlc_SnzPh7BWUy.gif" />
+<img width="300" src="https://cdn.discordapp.com/attachments/693151307116314736/988040948372094996/vlc_SnzPh7BWUy.gif" />
 
 ### Playlists Search
 
 Search created playlists from your favorite artists.
 
-<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988041488225165322/vlc_iIXyrKoq44.gif" />
+<img width="300" src="https://cdn.discordapp.com/attachments/693151307116314736/988041488225165322/vlc_iIXyrKoq44.gif" />
 
 ____
 
