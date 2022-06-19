@@ -1,8 +1,37 @@
 # Spotify Playlists Search App
 
+<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988037732871856168/Screenshot_20220619-080743_Expo_Go.jpg" />
+
 ## [pt-BR]
 
 Um App React Native para listar e pesquisar playlists na [Web API do Spotify](https://developer.spotify.com/documentation/web-api/reference/#/operations/search)
+
+____
+
+## Funcionalidades
+
+### Tema escuro
+
+O componente `<ThemeToggler />` é exibido na tela de Login e tem a responsabilidade de alternar entre o tema escuro e claro.
+
+**Nota**: Por padrão o app abrirá com o tema escuro
+
+<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988038749902499880/vlc_K1klj2CUTk.gif" />
+
+
+### Filtros de Pesquisa de Playlists
+
+Pesquisa por gêneros
+
+<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988040948372094996/vlc_SnzPh7BWUy.gif" />
+
+### Pesquisa de Playlists
+
+Pesquise as playlists criadas de seu artista favorito.
+
+<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988041488225165322/vlc_iIXyrKoq44.gif" />
+
+____
 
 ## Instruções para instalação
 
@@ -60,6 +89,35 @@ ____
 
 A React Native App that allows you to list and search Spotify Playlists using [Spotify's Web API](https://developer.spotify.com/documentation/web-api/reference/#/operations/search)
 
+
+____
+
+## Features
+
+### Dark Theme
+
+The component `<ThemeToggler />` shown on Login screen is responsable for toggling between the dark and light themes.
+
+**Note**: The app will open with dark theme by default.
+
+<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988038749902499880/vlc_K1klj2CUTk.gif" />
+
+
+### Playlists Filters
+
+Search by genre.
+
+<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988040948372094996/vlc_SnzPh7BWUy.gif" />
+
+### Playlists Search
+
+Search created playlists from your favorite artists.
+
+<img width="200" src="https://cdn.discordapp.com/attachments/693151307116314736/988041488225165322/vlc_iIXyrKoq44.gif" />
+
+____
+
+
 ## Installation instructions
 
 ### Development env
@@ -78,7 +136,7 @@ Run the following command to install the dependencies:
 yarn
 ```
 
-### How to start the projeect
+### How to start the project
 
 **Android**
 
